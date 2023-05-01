@@ -4,10 +4,7 @@ from fastapi import FastAPI
 import openai
 from src.chat import Chat
 from pydantic import BaseModel
-
-
-class ChatUserMessage(BaseModel):
-    message: str
+from src.models.api import ChatUserMessage
 
 
 load_dotenv()
@@ -32,7 +29,7 @@ async def list_models():
 @app.post("/chat")
 def chat(m: ChatUserMessage):
     print(m)
-    return chat_bot.ask_something(m.message)
+    return chat_bot.ask_something(m.content)
 
 
 if __name__ == "__main__":
